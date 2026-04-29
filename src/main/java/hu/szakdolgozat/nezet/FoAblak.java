@@ -1,64 +1,52 @@
-package hu.szakdolgozat.view;
+package hu.szakdolgozat.nezet;
 
+import hu.szakdolgozat.modell.SajatVerem;
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
-    private JTextArea codeArea;
-    private JPanel visualPanel;
+public class FoAblak extends JFrame {
+    public JButton inditasGomb = new JButton("INDÍTÁS");
+    public JButton lepesGomb = new JButton("LÉPÉS");
+    public JButton ujraGomb = new JButton("ÚJRA");
 
-    public MainFrame() {
-        // 1. Főablak beállításai
+    public FoAblak(SajatVerem verem) {
         setTitle("Rekurzió Szimulátor");
-        setSize(1000, 600); // Kicsit szélesebbre vettem, hogy szép legyen az 50-50
+        setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // --- KÖZÉPSŐ RÉSZ (Ez az új trükk!) ---
-        // Létrehozunk egy panelt, ami 1 soros és 2 oszlopos rácsot használ.
-        // Ez kényszeríti a "fele-fele" elosztást.
-        JPanel kozepsoPanel = new JPanel(new GridLayout(1, 2));
+        JPanel kozepsoResz = new JPanel(new GridLayout(1, 2));
+        //BAL OLDAL: KÓD PANEL
+        JPanel balOldal = new JPanel(new BorderLayout());
+        balOldal.setBorder(BorderFactory.createTitledBorder("KÓD PANEL"));
 
+        String faktKod = "public int faktorialis(int n) {\n" +
+                "    if (n <= 1) {\n" +
+                "        return 1;\n" +
+                "    } else {\n" +
+                "        return n * faktorialis(n - 1);\n" +
+                "    }\n" +
+                "}";
+        JTextArea kodHelye = new JTextArea(faktKod);
+        kodHelye.setEditable(false);
+        kodHelye.setFont(new Font("Monospaced", Font.BOLD, 14));
+        balOldal.add(new JScrollPane(kodHelye));
+        //JOBB OLDAL: VIZUALIZÁCIÓ
+        JPanel jobbOldal = new JPanel(new BorderLayout());
+        jobbOldal.setBorder(BorderFactory.createTitledBorder("VIZUALIZÁCIÓ"));
 
-        // --- 1. BAL OLDAL (KÓD) ---
-        JPanel balPanelKontener = new JPanel(new BorderLayout());
-        TitledBorder balKeret = BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "KÓD PANEL");
-        balKeret.setTitleJustification(TitledBorder.CENTER);
-        balPanelKontener.setBorder(balKeret);
+        RajzPanel rajzlap = new RajzPanel(verem);
+        rajzlap.setBackground(Color.WHITE);
+        jobbOldal.add(rajzlap);
 
-        codeArea = new JTextArea("// Ide kerül majd a kód...\n");
-        codeArea.setEditable(false);
-        balPanelKontener.add(new JScrollPane(codeArea), BorderLayout.CENTER);
-
-
-        // --- 2. JOBB OLDAL (VIZUALIZÁCIÓ) ---
-        JPanel jobbPanelKontener = new JPanel(new BorderLayout());
-        TitledBorder jobbKeret = BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "VIZUALIZÁCIÓ");
-        jobbKeret.setTitleJustification(TitledBorder.CENTER);
-        jobbPanelKontener.setBorder(jobbKeret);
-
-        visualPanel = new JPanel();
-        visualPanel.setBackground(Color.WHITE);
-        jobbPanelKontener.add(visualPanel, BorderLayout.CENTER);
-
-
-        // --- ÖSSZEÁLLÍTÁS ---
-        // Hozzáadjuk a bal és jobb oldalt a közös tartóhoz
-        kozepsoPanel.add(balPanelKontener);
-        kozepsoPanel.add(jobbPanelKontener);
-
-        // A közös tartót tesszük az ablak közepére
-        add(kozepsoPanel, BorderLayout.CENTER);
-
-
-        // --- ALSÓ GOMBOK ---
-        JPanel gombPanel = new JPanel();
-        gombPanel.add(new JButton("INDÍTÁS"));
-        gombPanel.add(new JButton("LÉPÉS"));
-        gombPanel.add(new JButton("ÚJRA"));
-        add(gombPanel, BorderLayout.SOUTH);
+        kozepsoResz.add(balOldal);
+        kozepsoResz.add(jobbOldal);
+        add(kozepsoResz, BorderLayout.CENTER);
+        //ALSÓ RÉSZ: GOMBOK
+        JPanel gombok = new JPanel();
+        gombok.add(inditasGomb);
+        gombok.add(lepesGomb);
+        gombok.add(ujraGomb);
+        add(gombok, BorderLayout.SOUTH);
     }
 }

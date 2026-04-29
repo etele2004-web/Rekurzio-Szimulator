@@ -1,16 +1,18 @@
 package hu.szakdolgozat.modell;
 
+public class VeremKeret {
+    public String fuggvenyNev;
+    public int parameterErtek;
+    public int visszateresiSor;
 
-public class StackFrame {
-    private String functionName;
-    private int parameterValue;
-
-    public StackFrame(String name, int param) {
-        this.functionName = name;
-        this.parameterValue = param;
+    public VeremKeret(String fuggvenyNev, int parameterErtek, int visszateresiSor) {
+        this.fuggvenyNev = fuggvenyNev;
+        this.parameterErtek = parameterErtek;
+        this.visszateresiSor = visszateresiSor;
     }
 
-    public String getDisplayInfo() {
-        return functionName + "(" + parameterValue + ")";
+    // Segédmetódus a kiíratáshoz
+    public String getSzoveg() {
+        return fuggvenyNev + "(" + parameterErtek + ") - sor: " + visszateresiSor;
     }
 }
