@@ -1,1 +1,18 @@
+Rekurzió Szimulátor 
+Egy Java alapú asztali alkalmazás, amely a rekurzív és iteratív algoritmusok memóriabeli működését (például a faktoriális számítást) mutat be vizuálisan. A projekt a szakdolgozatom részeként készült.
 
+Főbb funkciói
+-Dinamikus vizualizáció: A veremkeretek (Stack Frames) valós idejű kirajzolása a képernyőn.
+-Lépésenkénti követés: Az algoritmusok végrehajtásának manuális (LÉPÉS) és automatikus (INDÍTÁS) szimulációja.
+-Biztonságos memóriakezelés: A hagyományos Call Stack kiváltása saját verem adatszerkezettel a StackOverflowError elkerülése érdekében.
+
+Használt technológiák
+-Nyelv: Java 17
+-Grafikus felület: Java Swing
+-Architektúra: MVC (Model-View-Controller) minta
+
+Használat
+A program elindítása után az alábbi gombokkal vezérelhető a szimuláció:
+-LÉPÉS: Manuálisan hajtja végre a következő lépést a memóriában.
+-INDÍTÁS: Automatikus animációként futtatja le a folyamatot.
+-ÚJRA: Törli a memóriát és alaphelyzetbe állítja a szimulátort.
